@@ -1,0 +1,36 @@
+.logo-mark {
+  width: 26px;
+  height: 26px;
+  background: #1D4ED8;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cabecalho {
+  background-color: #FFFFFF;
+  border-bottom: 0.5px solid #E2E5EC;
+  height: 52px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+}
+
+.metade-1 {
+  font-size: 25px;
+}
+
+.metade-2 {
+  font-size: 25px;
+  color: blue;
+}

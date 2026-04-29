@@ -1,0 +1,19 @@
+.page-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 30px;
+  }
+  
+  .nav-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .nav-actions button {
+    border: none;
+    background: #F3F4F6;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }

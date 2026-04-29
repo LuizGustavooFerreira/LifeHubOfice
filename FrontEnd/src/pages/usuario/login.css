@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cabecalho {
+  background-color: #FFFFFF;
+  border-bottom: 0.5px solid #E2E5EC;
+  height: 52px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+}
+
+body {
+  font-family: sans-serif;
+  min-height: 100vh;
+  background-color:#F7F8FA;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  justify-content: center;
+  border: solid 3px #E2E5EC;
+  border-radius: 8%;
+  padding: 30px;
+  gap: 10px;
+  background-color: #Fff;
+}
+
+.rodape {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.conteudo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#linhaum {
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-size: 30px;
+}
+
+#linhadois{
+  display: flex;
+  font-size: 15px;
+  justify-content: center;
+  color: #6B7280;
+}
+
+#rodape, a{
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 5px;
+  gap: 10px;
+  border-color: solid  #6B7280;
+}
+
+footer {
+  display: flex;
+  gap: 25px;
+  margin: 15px;
+}
+
+#textbotao {
+  color: black;
+}
+
+.esqueceusenha {
+  color: blue;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#ou{
+  display: flex;
+  justify-content: center;
+}
+
+#naotemconta {
+  font-size: 12px;
+}
+
+#criar {
+  display: flex;
+  justify-content: center;
+}
+
+.metade-1 {
+  font-size: 25px;
+}
+
+.metade-2 {
+  font-size: 25px;
+  color: blue;
+}
+
+#inputentradas {
+  border-radius: 10px;
+  padding: 10px;
+  border-color: #D1D5DB;
+  background-color: #111827;
+  color: #fff;
+}
+
+.bolinha {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.modulos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-mark {
+  width: 26px;
+  height: 26px;
+  background: #1D4ED8;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#inputentradas {
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #D1D5DB;
+  background-color: #fff;
+  color: #111827;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* foco */
+#inputentradas:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* hover */
+#inputentradas:hover {
+  border-color: #9CA3AF;
+}
