@@ -16,6 +16,9 @@ router.register(r'projetos', ProjetoViewSet)
 router.register(r'projetos-tarefas', ProjetoTarefaViewSet)
 router.register(r'notas', NotaViewSet)
 router.register(r'eventos', EventoViewSet)
+router.register(r'saude', SaudeRegistroViewSet)
+router.register(r'exercicios', ExercicioRegistroViewSet)
+router.register(r'investimentos', InvestimentoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -261,3 +261,65 @@ class Evento(BaseModel):
 
     atualizado_em = models.DateTimeField(auto_now=True)
     deletado_em = models.DateTimeField(null=True, blank=True)
+
+
+# ================= SAÚDE =================
+class SaudeRegistro(BaseModel):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    
+    data_registro = models.DateField()
+    peso = models.DecimalField(max_digits=5, decimal_places=2)  # kg
+    altura = models.DecimalField(max_digits=5, decimal_places=2)  # m
+    imc = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    
+    notas = models.TextField(null=True, blank=True)
+    
+    class Meta:
+        unique_together = ('usuario', 'data_registro')
+
+
+# ================= EXERCÍCIOS =================
+class ExercicioRegistro(BaseModel):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    
+    data_registro = models.DateField()
+    nome = models.CharField(max_length=150)
+    tempo_minutos = models.IntegerField()  # minutos
+    intensidade = models.CharField(
+        max_length=20, 
+        choices=[('leve', 'Leve'), ('moderada', 'Moderada'), ('intensa', 'Intensa')],
+        default='moderada'
+    )
+    calorias = models.IntegerField(null=True, blank=True)
+    notas = models.TextField(null=True, blank=True)
+
+
+# ================= INVESTIMENTOS =================
+class Investimento(BaseModel):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    
+    nome = models.CharField(max_length=150)
+    tipo = models.CharField(
+        max_length=30,
+        choices=[
+            ('cdb', 'CDB'),
+            ('lci', 'LCI'),
+            ('lca', 'LCA'),
+            ('tesouro', 'Tesouro'),
+            ('acoes', 'Ações'),
+            ('fundo', 'Fundo'),
+            ('cripto', 'Criptomoeda'),
+            ('outro', 'Outro')
+        ]
+    )
+    
+    valor_investido = models.DecimalField(max_digits=15, decimal_places=2)
+    taxa_juros = models.DecimalField(max_digits=5, decimal_places=2)  # % ao ano
+    
+    data_investimento = models.DateField()
+    data_resgate = models.DateField(null=True, blank=True)
+    
+    ativo = models.BooleanField(default=True)
+    notas = models.TextField(null=True, blank=True)
+    
+    atualizado_em = models.DateTimeField(auto_now=True)

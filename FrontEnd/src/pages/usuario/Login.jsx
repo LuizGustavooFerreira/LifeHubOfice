@@ -4,11 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [erro, setErro] = useState("");
+  const [carregando, setCarregando] = useState(false);
 
   async function handleLogin(e) {
     e.preventDefault();
+    setErro("");
+    setCarregando(true);
 
     try {
       const resposta = await fetch("http://localhost:8000/api/token/", {
@@ -17,22 +21,33 @@ export default function Login() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          email: username,      // 🔥 ÚNICA MUDANÇA (antes era username)
+          email: email,    // 🔥 Agora usa email
           password: password
         })
       });
 
       const dados = await resposta.json();
 
+      if (!resposta.ok) {
+        throw new Error(dados.detail || "Email ou senha inválidos");
+      }
+
       if (dados.access) {
-        localStorage.setItem("token", dados.access);
+        // Salva tokens
+        localStorage.setItem("access_token", dados.access);
+        localStorage.setItem("refresh_token", dados.refresh);
+        localStorage.setItem("usuario_id", dados.usuario_id);
+        localStorage.setItem("usuario_nome", dados.nome);
+        localStorage.setItem("usuario_email", dados.email);
+        
         navigate("/index");
-      } else {
-        console.log("Usuário ou senha inválidos");
       }
 
     } catch (erro) {
-      console.error("Erro no login:", erro);
+      setErro(erro.message || "Erro no login");
+      console.error("Erro:", erro);
+    } finally {
+      setCarregando(false);
     }
   }
 
@@ -54,13 +69,16 @@ export default function Login() {
             <p id="linhaum">Bem-vindo de volta</p>
             <p id="linhadois">Entre para acessar seus módulos</p>
 
-            <label>Usuário</label>
+            {erro && <div style={{ color: 'red', marginBottom: '10px' }}>{erro}</div>}
+
+            <label>Email</label>
             <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               id="inputentradas"
-              placeholder="Seu usuário"
+              placeholder="seu@email.com"
+              required
             />
 
             <label>Senha</label>
@@ -70,15 +88,20 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               id="inputentradas"
               placeholder="Sua senha"
+              required
             />
 
             <a href="#" className="esqueceusenha">Esqueceu a senha?</a>
 
-            <button type="submit" id="inputentradas">Entrar</button>
+            <button type="submit" id="inputentradas" disabled={carregando}>
+              {carregando ? "Entrando..." : "Entrar"}
+            </button>
 
             <p id="ou">ou</p>
 
-            <button type="button" id="inputentradas">Google</button>
+            <button type="button" id="inputentradas" disabled>
+              Google (em breve)
+            </button>
 
             <div id="criar">
               <p id="naotemconta">
