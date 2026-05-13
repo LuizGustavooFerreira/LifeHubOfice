@@ -8,6 +8,7 @@ export default function Financas() {
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState("entrada");
   const [descricao, setDescricao] = useState("");
+  const [observacao, setObservacao] = useState("");
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
   const [conta, setConta] = useState(null);
@@ -20,21 +21,23 @@ export default function Financas() {
   async function carregarConta() {
     try {
       const resposta = await api.get("contas/");
-      if (resposta.data && resposta.data.length > 0) {
-        setConta(resposta.data[0]); // Primeira conta
+      if (resposta.data?.length > 0) {
+        setConta(resposta.data[0]);
       }
     } catch (err) {
-      console.error("Erro ao carregar conta:", err);
+      console.error(err);
     }
   }
 
   async function carregarTransacoes() {
     try {
       setCarregando(true);
+
       const resposta = await api.get("transacoes/");
+
       setTransacoes(resposta.data || []);
     } catch (err) {
-      console.error("Erro ao carregar transações:", err);
+      console.error(err);
       setErro("Erro ao carregar transações");
     } finally {
       setCarregando(false);
@@ -42,22 +45,25 @@ export default function Financas() {
   }
 
   async function adicionar() {
-    if (!valor) return;
+    if (!valor || !descricao) return;
 
     try {
       const resposta = await api.post("transacoes/", {
-        tipo: tipo === "entrada" ? "entrada" : "saida",
-        descricao: descricao,
+        tipo,
+        descricao,
         valor: parseFloat(valor),
         data: new Date().toISOString().split("T")[0],
+        observacao,
         conta: conta?.id
       });
 
-      setTransacoes([...transacoes, resposta.data]);
+      setTransacoes([resposta.data, ...transacoes]);
+
       setValor("");
       setDescricao("");
+      setObservacao("");
     } catch (err) {
-      console.error("Erro ao criar transação:", err);
+      console.error("Erro completo:", err.response?.data);
       setErro("Erro ao criar transação");
     }
   }
@@ -67,24 +73,56 @@ export default function Financas() {
 
     try {
       await api.delete(`transacoes/${id}/`);
-      setTransacoes(transacoes.filter(t => t.id !== id));
+
+      setTransacoes(
+        transacoes.filter((t) => t.id !== id)
+      );
     } catch (err) {
-      console.error("Erro ao excluir:", err);
-      setErro("Erro ao excluir transação");
+      console.error(err);
     }
   }
 
-  const saldo = transacoes.reduce((acc, item) => {
-    return item.tipo === "entrada"
-      ? acc + parseFloat(item.valor)
-      : acc - parseFloat(item.valor);
-  }, 0);
+  const entradas = transacoes
+    .filter((t) => t.tipo === "entrada")
+    .reduce((acc, t) => acc + parseFloat(t.valor), 0);
+
+  const saidas = transacoes
+    .filter((t) => t.tipo === "saida")
+    .reduce((acc, t) => acc + parseFloat(t.valor), 0);
+
+  const saldo = entradas - saidas;
+
+  function formatar(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  }
 
   return (
     <Layout titulo="Finanças">
-      {erro && <div style={{ color: 'red', padding: '10px' }}>{erro}</div>}
+      {erro && (
+        <div style={{ color: "red", marginBottom: 10 }}>
+          {erro}
+        </div>
+      )}
 
-      <h2>Saldo: R$ {saldo.toFixed(2)}</h2>
+      <div className="cards-resumo">
+        <div className="resumo-card">
+          <h3>Saldo</h3>
+          <p>{formatar(saldo)}</p>
+        </div>
+
+        <div className="resumo-card entrada">
+          <h3>Entradas</h3>
+          <p>{formatar(entradas)}</p>
+        </div>
+
+        <div className="resumo-card saida">
+          <h3>Saídas</h3>
+          <p>{formatar(saidas)}</p>
+        </div>
+      </div>
 
       <div className="card">
         <input
@@ -94,7 +132,10 @@ export default function Financas() {
           type="number"
         />
 
-        <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+        <select
+          value={tipo}
+          onChange={(e) => setTipo(e.target.value)}
+        >
           <option value="entrada">Entrada</option>
           <option value="saida">Saída</option>
         </select>
@@ -105,21 +146,49 @@ export default function Financas() {
           onChange={(e) => setDescricao(e.target.value)}
         />
 
-        <button onClick={adicionar} disabled={carregando}>
+        <input
+          placeholder="Observação"
+          value={observacao}
+          onChange={(e) => setObservacao(e.target.value)}
+        />
+
+        <button
+          onClick={adicionar}
+          disabled={carregando}
+        >
           {carregando ? "..." : "Adicionar"}
         </button>
       </div>
 
       <div className="lista">
-        {transacoes.map(item => (
-          <div key={item.id} className="item">
-            <span>
-              {item.tipo === "entrada" ? "💰" : "💸"} R$ {parseFloat(item.valor).toFixed(2)}
-            </span>
+        {transacoes.map((item) => (
+          <div
+            key={item.id}
+            className={`item ${item.tipo}`}
+          >
+            <div>
+              <strong>
+                {item.tipo === "entrada" ? "💰" : "💸"}{" "}
+                {formatar(item.valor)}
+              </strong>
 
-            <span>{item.descricao}</span>
+              <p>{item.descricao}</p>
 
-            <button onClick={() => excluir(item.id)}>🗑</button>
+              {item.observacao && (
+                <small>{item.observacao}</small>
+              )}
+
+              <p>
+                {new Date(item.data).toLocaleDateString("pt-BR")}
+              </p>
+            </div>
+
+            <button
+              className="btn-excluir"
+              onClick={() => excluir(item.id)}
+            >
+              Excluir
+            </button>
           </div>
         ))}
       </div>

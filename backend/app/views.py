@@ -4,6 +4,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt import exceptions as jwt_exceptions
 from django.contrib.auth import authenticate
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
 from .models import *
 from .serializers import *
@@ -138,7 +140,9 @@ class HabitoRegistroViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return HabitoRegistro.objects.filter(usuario=self.request.user)
+        return HabitoRegistro.objects.filter(
+            habito__usuario=self.request.user
+        )
 
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)
@@ -187,13 +191,13 @@ class NotaViewSet(viewsets.ModelViewSet):
 
 
 # ================= SAÚDE =================
+
 class SaudeRegistroViewSet(viewsets.ModelViewSet):
     queryset = SaudeRegistro.objects.all()
     serializer_class = SaudeRegistroSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # Filtra por usuário logado
         return SaudeRegistro.objects.filter(usuario=self.request.user)
 
     def perform_create(self, serializer):
@@ -203,12 +207,14 @@ class SaudeRegistroViewSet(viewsets.ModelViewSet):
 # ================= EXERCÍCIOS =================
 class ExercicioRegistroViewSet(viewsets.ModelViewSet):
     queryset = ExercicioRegistro.objects.all()
+
     serializer_class = ExercicioRegistroSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # Filtra por usuário logado
-        return ExercicioRegistro.objects.filter(usuario=self.request.user)
+        return ExercicioRegistro.objects.filter(
+            usuario=self.request.user
+        )
 
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)

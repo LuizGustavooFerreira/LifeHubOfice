@@ -8,6 +8,10 @@ export default function Investimentos() {
   const [valor, setValor] = useState("");
   const [taxa, setTaxa] = useState("");
   const [tipo, setTipo] = useState("cdb");
+  const [data, setData] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
 
@@ -18,8 +22,11 @@ export default function Investimentos() {
   async function carregarInvestimentos() {
     try {
       setCarregando(true);
+
       const resposta = await api.get("investimentos/");
+
       setInvestimentos(resposta.data || []);
+
     } catch (err) {
       console.error("Erro ao carregar investimentos:", err);
       setErro("Erro ao carregar investimentos");
@@ -37,15 +44,17 @@ export default function Investimentos() {
         tipo: tipo,
         valor_investido: parseFloat(valor),
         taxa_juros: parseFloat(taxa),
-        data_investimento: new Date().toISOString().split("T")[0]
+        data_investimento: data
       });
 
       setInvestimentos([...investimentos, resposta.data]);
+
       setNome("");
       setValor("");
       setTaxa("");
+
     } catch (err) {
-      console.error("Erro ao criar investimento:", err);
+      console.error("Erro completo:", err.response?.data);
       setErro("Erro ao registrar investimento");
     }
   }
@@ -55,29 +64,63 @@ export default function Investimentos() {
 
     try {
       await api.delete(`investimentos/${id}/`);
-      setInvestimentos(investimentos.filter(i => i.id !== id));
+
+      setInvestimentos(
+        investimentos.filter(i => i.id !== id)
+      );
+
     } catch (err) {
       console.error("Erro ao excluir:", err);
       setErro("Erro ao excluir investimento");
     }
   }
 
-  const totalInvestido = investimentos.reduce((acc, i) => acc + parseFloat(i.valor_investido), 0);
+  const totalInvestido = investimentos.reduce(
+    (acc, i) => acc + Number(i.valor_investido),
+    0
+  );
+
+  const totalRendimento = investimentos.reduce(
+    (acc, i) => acc + Number(i.rendimento_estimado || 0),
+    0
+  );
+
+  const patrimonioTotal =
+    totalInvestido + totalRendimento;
 
   return (
     <Layout titulo="Investimentos">
-      {erro && <div style={{ color: 'red', padding: '10px' }}>{erro}</div>}
 
-      <h2>Total investido: R$ {totalInvestido.toFixed(2)}</h2>
+      {erro && (
+        <div style={{ color: "red", padding: "10px" }}>
+          {erro}
+        </div>
+      )}
+
+      <h2>
+        Total investido: R$ {totalInvestido.toFixed(2)}
+      </h2>
+
+      <h3>
+        Rendimento: R$ {totalRendimento.toFixed(2)}
+      </h3>
+
+      <h3>
+        Patrimônio total: R$ {patrimonioTotal.toFixed(2)}
+      </h3>
 
       <div className="card">
+
         <input
           placeholder="Nome (ex: CDB)"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
         />
 
-        <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+        <select
+          value={tipo}
+          onChange={(e) => setTipo(e.target.value)}
+        >
           <option value="cdb">CDB</option>
           <option value="lci">LCI</option>
           <option value="lca">LCA</option>
@@ -101,7 +144,16 @@ export default function Investimentos() {
           type="number"
         />
 
-        <button onClick={adicionar} disabled={carregando}>
+        <input
+          type="date"
+          value={data}
+          onChange={(e) => setData(e.target.value)}
+        />
+
+        <button
+          onClick={adicionar}
+          disabled={carregando}
+        >
           {carregando ? "..." : "Adicionar"}
         </button>
       </div>
@@ -109,17 +161,64 @@ export default function Investimentos() {
       <div className="lista">
         {investimentos.map(i => (
           <div key={i.id} className="item">
+
             <div>
-              <strong>{i.nome} ({i.tipo})</strong>
-              <p>R$ {parseFloat(i.valor_investido).toFixed(2)}</p>
-              <p>Taxa: {i.taxa_juros}% a.a.</p>
-              <p>Rendimento est.: R$ {(i.rendimento_estimado || 0).toFixed(2)}</p>
+              <strong>
+                {i.nome} ({i.tipo})
+              </strong>
+
+              <p>
+                Valor investido:
+                <strong>
+                  {" "}
+                  R$ {Number(i.valor_investido).toFixed(2)}
+                </strong>
+              </p>
+
+              <p>
+                Taxa:
+                <strong>
+                  {" "}
+                  {i.taxa_juros}% a.a.
+                </strong>
+              </p>
+
+              <p>
+                Status:
+                <strong>
+                  {" "}
+                  {i.ativo ? "Ativo" : "Finalizado"}
+                </strong>
+              </p>
+
+              <p>
+                Data:
+                <strong>
+                  {" "}
+                  {i.data_investimento}
+                </strong>
+              </p>
+
+              <p>
+                Rendimento estimado:
+                <strong>
+                  {" "}
+                  R$ {Number(i.rendimento_estimado).toFixed(2)}
+                </strong>
+              </p>
             </div>
 
-            <button onClick={() => excluir(i.id)}>🗑</button>
+            <button
+              className="btn-excluir"
+              onClick={() => excluir(i.id)}
+            >
+              Excluir
+            </button>
+
           </div>
         ))}
       </div>
+
     </Layout>
   );
 }

@@ -116,3 +116,223 @@
   align-items: center;
   width: 100%; /* 🔥 ESSA LINHA RESOLVE */
 }
+
+/* DASHBOARD */
+
+.dashboard{
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.dashboard-cards{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.dashboard-card{
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 150px;
+}
+
+.card-top{
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.card-top p{
+  color: #6B7280;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.card-top h2{
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.icone{
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.card-footer{
+  margin-top: 20px;
+}
+
+.card-footer span{
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* CORES */
+
+.blue .icone{
+  background: #DBEAFE;
+}
+
+.blue h2,
+.blue .card-footer span{
+  color: #2563EB;
+}
+
+.green .icone{
+  background: #DCFCE7;
+}
+
+.green h2,
+.green .card-footer span{
+  color: #16A34A;
+}
+
+.orange .icone{
+  background: #FFEDD5;
+}
+
+.orange h2,
+.orange .card-footer span{
+  color: #EA580C;
+}
+
+.purple .icone{
+  background: #E9D5FF;
+}
+
+.purple h2,
+.purple .card-footer span{
+  color: #7C3AED;
+}
+
+/* BOTTOM */
+
+.dashboard-bottom{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+}
+
+.atividades,
+.resumo-saude{
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.titulo-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.titulo-box h3{
+  font-size: 22px;
+}
+
+.titulo-box button{
+  border: none;
+  background: #EEF2FF;
+  color: #2563EB;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.atividade-item{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.atividade-item span{
+  width: 48px;
+  height: 48px;
+  background: #F3F4F6;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.atividade-item strong{
+  display: block;
+  margin-bottom: 3px;
+}
+
+.atividade-item p{
+  color: #6B7280;
+  font-size: 14px;
+}
+
+/* SAÚDE */
+
+.saude-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.saude-card{
+  background: #F8FAFC;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.saude-card p{
+  color: #6B7280;
+  margin-bottom: 10px;
+}
+
+.saude-card h2{
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.saude-card span{
+  color: #16A34A;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width: 1100px){
+
+  .dashboard-cards{
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-bottom{
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media(max-width: 700px){
+
+  .dashboard-cards{
+    grid-template-columns: 1fr;
+  }
+
+  .saude-grid{
+    grid-template-columns: 1fr;
+  }
+
+}

@@ -70,24 +70,28 @@ class TransacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transacao
         fields = '__all__'
+        read_only_fields = ['usuario']
 
 
 class HabitoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habito
         fields = '__all__'
+        read_only_fields = ['usuario']  
 
 
 class HabitoRegistroSerializer(serializers.ModelSerializer):
     class Meta:
         model = HabitoRegistro
         fields = '__all__'
+        read_only_fields = ['usuario']
 
 
 class TarefaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tarefa
         fields = '__all__'
+        read_only_fields = ['usuario']
 
 
 class ProjetoSerializer(serializers.ModelSerializer):
@@ -119,17 +123,16 @@ class SaudeRegistroSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaudeRegistro
         fields = '__all__'
-        read_only_fields = ['imc', 'criado_em']
+        read_only_fields = ['usuario', 'imc', 'criado_em']
 
     def create(self, validated_data):
         peso = validated_data.get('peso')
         altura = validated_data.get('altura')
-        
-        # Calcula IMC automaticamente
+
         if peso and altura:
             imc = peso / (altura * altura)
             validated_data['imc'] = imc
-        
+
         return super().create(validated_data)
 
 
@@ -138,20 +141,30 @@ class ExercicioRegistroSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExercicioRegistro
         fields = '__all__'
-        read_only_fields = ['criado_em']
+        read_only_fields = ['usuario', 'criado_em']
 
 
 # ================= INVESTIMENTOS =================
 class InvestimentoSerializer(serializers.ModelSerializer):
     rendimento_estimado = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = Investimento
-        fields = ['id', 'nome', 'tipo', 'valor_investido', 'taxa_juros', 
-                  'data_investimento', 'data_resgate', 'ativo', 'notas', 
-                  'rendimento_estimado', 'criado_em']
-        read_only_fields = ['criado_em', 'rendimento_estimado']
-    
+        fields = [
+            'id',
+            'nome',
+            'tipo',
+            'valor_investido',
+            'taxa_juros',
+            'data_investimento',
+            'data_resgate',
+            'ativo',
+            'notas',
+            'rendimento_estimado',
+            'criado_em'
+        ]
+        read_only_fields = ['usuario', 'criado_em', 'rendimento_estimado']
+        
     def get_rendimento_estimado(self, obj):
         """Calcula rendimento estimado"""
         from datetime import date

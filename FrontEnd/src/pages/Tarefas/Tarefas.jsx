@@ -1,36 +1,29 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
 import api from "../../api/api";
-import "./Tarefa.css";
+import "./Tarefas.css";
 
 export default function Tarefas() {
-  const navigate = useNavigate();
-
-  const hoje = new Date().toISOString().split("T")[0];
-
   const [tarefas, setTarefas] = useState([]);
   const [titulo, setTitulo] = useState("");
+  const [prioridade, setPrioridade] = useState("media");
+  const [data, setData] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [filtro, setFiltro] = useState("todas");
-  const [dataSelecionada, setDataSelecionada] = useState(hoje);
-  const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
 
-  // Carrega tarefas do backend
   useEffect(() => {
-    carregarTarefas();
+    carregar();
   }, []);
 
-  async function carregarTarefas() {
+  async function carregar() {
     try {
-      setCarregando(true);
       const resposta = await api.get("tarefas/");
       setTarefas(resposta.data || []);
-      setErro("");
     } catch (err) {
-      console.error("Erro ao carregar tarefas:", err);
+      console.error(err);
       setErro("Erro ao carregar tarefas");
-    } finally {
-      setCarregando(false);
     }
   }
 
@@ -38,163 +31,268 @@ export default function Tarefas() {
     if (!titulo.trim()) return;
 
     try {
-      const novaTarefa = {
-        titulo: titulo,
+      const resposta = await api.post("tarefas/", {
+        titulo,
+        descricao: "",
+        prioridade,
         status: "pendente",
-        data_vencimento: dataSelecionada,
-        descricao: ""
-      };
+        data_vencimento: data
+      });
 
-      const resposta = await api.post("tarefas/", novaTarefa);
       setTarefas([...tarefas, resposta.data]);
+
       setTitulo("");
-      setErro("");
+      setPrioridade("media");
     } catch (err) {
-      console.error("Erro ao criar tarefa:", err);
+      console.error(err.response?.data);
       setErro("Erro ao criar tarefa");
     }
   }
 
-  async function toggle(id, tarefaAtual) {
+  async function toggle(id, tarefa) {
     try {
-      const novoStatus = tarefaAtual.status === "pendente" ? "concluida" : "pendente";
-      const resposta = await api.patch(`tarefas/${id}/`, {
-        status: novoStatus,
-        concluida_em: novoStatus === "concluida" ? new Date().toISOString() : null
+      const novoStatus =
+        tarefa.status === "concluida"
+          ? "pendente"
+          : "concluida";
+
+      await api.patch(`tarefas/${id}/`, {
+        status: novoStatus
       });
 
-      setTarefas(tarefas.map(t => t.id === id ? resposta.data : t));
+      setTarefas(
+        tarefas.map(t =>
+          t.id === id
+            ? { ...t, status: novoStatus }
+            : t
+        )
+      );
     } catch (err) {
-      console.error("Erro ao atualizar tarefa:", err);
-      setErro("Erro ao atualizar tarefa");
+      console.error(err);
     }
   }
 
   async function excluir(id) {
-    if (!window.confirm("Tem certeza?")) return;
+    if (!window.confirm("Excluir tarefa?")) return;
 
     try {
       await api.delete(`tarefas/${id}/`);
+
       setTarefas(tarefas.filter(t => t.id !== id));
     } catch (err) {
-      console.error("Erro ao excluir tarefa:", err);
-      setErro("Erro ao excluir tarefa");
+      console.error(err);
     }
   }
 
-  async function atualizar(id, novoTitulo) {
-    if (!novoTitulo.trim()) return;
+  const hoje = new Date().toISOString().split("T")[0];
 
-    try {
-      const resposta = await api.patch(`tarefas/${id}/`, {
-        titulo: novoTitulo
-      });
-
-      setTarefas(tarefas.map(t => t.id === id ? resposta.data : t));
-    } catch (err) {
-      console.error("Erro ao atualizar tarefa:", err);
-      setErro("Erro ao atualizar tarefa");
-    }
-  }
-
-  function handleLogout() {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    navigate("/usuario/login");
-  }
-
-  // Filtra tarefas
   const tarefasFiltradas = tarefas.filter(t => {
-    // Compara datas
-    const dataTarefa = t.data_vencimento || "";
-    if (dataTarefa !== dataSelecionada) return false;
+    if (filtro === "ativas")
+      return t.status !== "concluida";
 
-    // Filtra por status
-    if (filtro === "ativas") return t.status === "pendente";
-    if (filtro === "concluidas") return t.status === "concluida";
+    if (filtro === "concluidas")
+      return t.status === "concluida";
+
+    if (filtro === "atrasadas")
+      return (
+        t.data_vencimento < hoje &&
+        t.status !== "concluida"
+      );
 
     return true;
   });
 
-  return (
-    <div className="tarefas-wrap">
-      <header className="cabecalho">
-        <nav className="nav-conteudo">
-          <div className="logo-mark">L</div>
-          <h1>
-            <span className="metade-1">Life</span>
-            <span className="metade-2">Hub</span>
-          </h1>
-          <div className="nav-actions">
-            <button onClick={() => navigate("/index")} className="btn-voltar">
-              ←
-            </button>
-            <button className="btn-sair" onClick={handleLogout}>
-              Sair
-            </button>
-          </div>
-        </nav>
-      </header>
+  const pendentes = tarefas.filter(
+    t => t.status !== "concluida"
+  ).length;
 
-      <main className="tarefas-container">
+  const concluidas = tarefas.filter(
+    t => t.status === "concluida"
+  ).length;
+
+  function corPrioridade(prioridade) {
+    if (prioridade === "alta") return "#ef4444";
+    if (prioridade === "media") return "#f59e0b";
+    return "#10b981";
+  }
+
+  function corData(tarefa) {
+    if (
+      tarefa.data_vencimento < hoje &&
+      tarefa.status !== "concluida"
+    ) {
+      return "#ef4444";
+    }
+
+    return "#64748b";
+  }
+
+  return (
+    <Layout titulo="Tarefas">
+      <div className="tarefas-container">
+
         <h1>Tarefas</h1>
 
-        {erro && <div style={{ color: 'red', padding: '10px', backgroundColor: '#ffeeee' }}>{erro}</div>}
+        {erro && (
+          <div className="erro">{erro}</div>
+        )}
 
-        <input
-          type="date"
-          value={dataSelecionada}
-          onChange={(e) => setDataSelecionada(e.target.value)}
-          className="input-data"
-        />
+        <div className="resumo">
+
+          <div className="card-resumo">
+            <strong>{pendentes}</strong>
+            <span>Pendentes</span>
+          </div>
+
+          <div className="card-resumo">
+            <strong>{concluidas}</strong>
+            <span>Concluídas</span>
+          </div>
+
+        </div>
 
         <div className="tarefas-input">
+
           <input
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && adicionar()}
-            placeholder="Digite uma tarefa..."
+            type="date"
+            value={data}
+            onChange={(e) =>
+              setData(e.target.value)
+            }
           />
-          <button onClick={adicionar} disabled={carregando}>
-            {carregando ? "..." : "Adicionar"}
+
+          <input
+            placeholder="Digite uma tarefa..."
+            value={titulo}
+            onChange={(e) =>
+              setTitulo(e.target.value)
+            }
+          />
+
+          <select
+            value={prioridade}
+            onChange={(e) =>
+              setPrioridade(e.target.value)
+            }
+          >
+            <option value="baixa">Baixa</option>
+            <option value="media">Média</option>
+            <option value="alta">Alta</option>
+          </select>
+
+          <button onClick={adicionar}>
+            Adicionar
           </button>
+
         </div>
 
         <div className="tarefas-filtros">
-          <button onClick={() => setFiltro("todas")}>Todas</button>
-          <button onClick={() => setFiltro("ativas")}>Ativas</button>
-          <button onClick={() => setFiltro("concluidas")}>Concluídas</button>
+
+          <button onClick={() => setFiltro("todas")}>
+            Todas
+          </button>
+
+          <button onClick={() => setFiltro("ativas")}>
+            Ativas
+          </button>
+
+          <button onClick={() => setFiltro("concluidas")}>
+            Concluídas
+          </button>
+
+          <button onClick={() => setFiltro("atrasadas")}>
+            Atrasadas
+          </button>
+
         </div>
 
         <div className="tarefas-lista">
-          {tarefasFiltradas.map(t => (
-            <div key={t.id} className="tarefa-item">
-              <input
-                type="checkbox"
-                checked={t.status === "concluida"}
-                onChange={() => toggle(t.id, t)}
-              />
 
-              <span className={t.status === "concluida" ? "concluida" : ""}>
-                {t.titulo}
-              </span>
+          {tarefasFiltradas.map(t => (
+
+            <div
+              key={t.id}
+              className={`item ${
+                t.status === "concluida"
+                  ? "tarefa-feita"
+                  : ""
+              }`}
+            >
+
+              <div>
+
+                <h3>{t.titulo}</h3>
+
+                <p
+                  style={{
+                    color: corData(t)
+                  }}
+                >
+                  📅 {t.data_vencimento}
+                </p>
+
+                <p>
+                  Prioridade:
+                  <span
+                    className="badge-prioridade"
+                    style={{
+                      background:
+                        corPrioridade(
+                          t.prioridade
+                        )
+                    }}
+                  >
+                    {t.prioridade}
+                  </span>
+                </p>
+
+                <p>
+                  Status:
+                  {" "}
+                  <strong>
+                    {t.status === "concluida"
+                      ? "Concluída"
+                      : "Pendente"}
+                  </strong>
+                </p>
+
+              </div>
 
               <div className="acoes">
-                <button onClick={() => atualizar(t.id, prompt("Novo título:", t.titulo) || t.titulo)}>
-                  ✏️
+
+                <button
+                  className={
+                    t.status === "concluida"
+                      ? "btn-feito"
+                      : "btn-marcar"
+                  }
+                  onClick={() =>
+                    toggle(t.id, t)
+                  }
+                >
+                  {t.status === "concluida"
+                    ? "✓ Feita"
+                    : "Marcar"}
                 </button>
-                <button onClick={() => excluir(t.id)}>
-                  🗑
+
+                <button
+                  className="btn-excluir"
+                  onClick={() =>
+                    excluir(t.id)
+                  }
+                >
+                  Excluir
                 </button>
+
               </div>
+
             </div>
+
           ))}
+
         </div>
 
-        <p className="contador">
-          {tarefasFiltradas.filter(t => t.status === "pendente").length} pendentes
-        </p>
-      </main>
-    </div>
+      </div>
+    </Layout>
   );
 }

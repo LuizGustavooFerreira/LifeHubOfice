@@ -7,7 +7,7 @@ export default function Saude() {
   const [registros, setRegistros] = useState([]);
   const [peso, setPeso] = useState("");
   const [altura, setAltura] = useState("");
-  const [meta, setMeta] = useState("");
+  const [meta, setMeta] = useState(localStorage.getItem("metaPeso") || "");
   const [data, setData] = useState(new Date().toISOString().split("T")[0]);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
@@ -52,7 +52,7 @@ export default function Saude() {
       setRegistros([...registros, resposta.data]);
       setPeso("");
     } catch (err) {
-      console.error("Erro ao criar registro:", err);
+      console.error("Erro completo:", err.response?.data);
       setErro("Erro ao salvar registro");
     }
   }
@@ -134,7 +134,7 @@ export default function Saude() {
                 <p>Altura: {r.altura} m</p>
                 <p>IMC: {imc} ({classificacao(imc)})</p>
               </div>
-              <button onClick={() => excluir(r.id)}>🗑</button>
+              <button className="btn-excluir" onClick={() => excluir(r.id)}>Excluir</button>
             </div>
           );
         })}

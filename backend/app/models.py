@@ -107,8 +107,8 @@ class Conta(BaseModel):
 # ================= TRANSAÇÕES =================
 class Transacao(BaseModel):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    conta = models.ForeignKey(Conta, on_delete=models.PROTECT)
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
+    conta = models.ForeignKey(Conta,on_delete=models.PROTECT,null=True,blank=True)
+    categoria = models.ForeignKey(Categoria,on_delete=models.SET_NULL,null=True,blank=True)
 
     tipo = models.CharField(max_length=20)
     descricao = models.CharField(max_length=255)
