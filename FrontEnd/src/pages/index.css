@@ -30,69 +30,96 @@
 /* GRID */
 .index-grid {
   display: grid;
-  grid-template-columns: repeat(3, 140px);
+  grid-template-columns: repeat(6, 1fr);
   gap: 20px;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .index-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .index-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .index-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* CARD (agora vertical) */
 .index-card {
   background: #fff;
   border: 1px solid #E5E7EB;
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 20px;
+  padding: 28px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
 }
 
-/* hover */
 .index-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
-  border-color: #1D4ED8;
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+  border-color: #2563EB;
 }
 
-/* 🔥 ícone grande */
-.icone {
-  font-size: 28px;
-}
-
-/* nome */
 .index-card p {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   text-align: center;
+  color: #111827;
+}
+
+.modules-section {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #E5E7EB;
+}
+
+.modules-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #2563EB;
+  margin: 0 0 8px 0;
+}
+
+.modules-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
 }
 
 /* ========================= */
-/* 🔥🔥 ACRESCENTADO ABAIXO 🔥🔥 */
+/* Ícone grande */
 /* ========================= */
 
-/* centraliza corretamente */
-.index-grid {
-  justify-content: center;
-}
-
-/* deixa os cards maiores */
-.index-card {
-  padding: 30px;
-  border-radius: 18px;
-}
-
-/* aumenta ícone de verdade */
 .icone {
   font-size: 40px;
 }
 
 /* melhora hover */
 .index-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
 }
+
 
 .btn-sair {
   margin-left: auto;
@@ -109,6 +136,241 @@
   background: #FEE2E2;
   border-color: #DC2626;
   color: #DC2626;
+}
+
+/* ============= RESPONSIVO ============= */
+
+@media (max-width: 1024px) {
+  .index-conteudo {
+    padding: 40px 28px;
+  }
+
+  .index-bemvindo {
+    font-size: 22px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .index-grid {
+    gap: 16px;
+  }
+
+  .index-card {
+    padding: 24px 16px;
+  }
+
+  .icone {
+    font-size: 36px;
+  }
+
+  .modules-title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .index-conteudo {
+    padding: 28px 16px;
+  }
+
+  .index-bemvindo {
+    font-size: 20px;
+  }
+
+  .index-sub {
+    margin-bottom: 20px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .dashboard-card {
+    min-height: 120px;
+    padding: 18px;
+  }
+
+  .card-top h2 {
+    font-size: 24px;
+  }
+
+  .icone {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  .index-grid {
+    gap: 14px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .index-card {
+    padding: 20px 12px;
+    border-radius: 16px;
+  }
+
+  .index-card p {
+    font-size: 12px;
+  }
+
+  .modules-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+  }
+
+  .modules-label {
+    font-size: 11px;
+  }
+
+  .modules-title {
+    font-size: 18px;
+  }
+
+  .atividade-item span {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .index-conteudo {
+    padding: 20px 12px;
+  }
+
+  .index-bemvindo {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .index-sub {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .dashboard {
+    margin-top: 24px;
+    margin-bottom: 32px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .dashboard-card {
+    min-height: 110px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .card-top {
+    gap: 10px;
+  }
+
+  .card-top h2 {
+    font-size: 20px;
+  }
+
+  .card-top p {
+    font-size: 12px;
+  }
+
+  .icone {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    border-radius: 12px;
+  }
+
+  .index-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 100%;
+  }
+
+  .index-card {
+    padding: 16px 8px;
+    border-radius: 14px;
+    gap: 8px;
+  }
+
+  .index-card p {
+    font-size: 11px;
+  }
+
+  .modules-label {
+    font-size: 10px;
+  }
+
+  .modules-title {
+    font-size: 16px;
+  }
+
+  .titulo-box h3 {
+    font-size: 18px;
+  }
+
+  .atividade-item {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .atividade-item span {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .index-conteudo {
+    padding: 16px 8px;
+  }
+
+  .index-bemvindo {
+    font-size: 16px;
+  }
+
+  .dashboard-card {
+    min-height: 100px;
+    padding: 14px;
+  }
+
+  .card-top h2 {
+    font-size: 18px;
+  }
+
+  .icone {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .index-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .index-card {
+    padding: 14px 6px;
+  }
+
+  .index-card p {
+    font-size: 10px;
+  }
+
+  .modules-title {
+    font-size: 14px;
+  }
 }
 
 .nav-conteudo {

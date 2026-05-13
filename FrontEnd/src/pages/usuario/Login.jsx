@@ -1,6 +1,6 @@
-import "../usuario/Login.css";
+import "./login.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function Login() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          email: email,    // 🔥 Agora usa email
+          email: email,
           password: password
         })
       });
@@ -33,13 +33,12 @@ export default function Login() {
       }
 
       if (dados.access) {
-        // Salva tokens
         localStorage.setItem("access_token", dados.access);
         localStorage.setItem("refresh_token", dados.refresh);
         localStorage.setItem("usuario_id", dados.usuario_id);
         localStorage.setItem("usuario_nome", dados.nome);
         localStorage.setItem("usuario_email", dados.email);
-        
+
         navigate("/index");
       }
 
@@ -64,49 +63,52 @@ export default function Login() {
       </header>
 
       <main className="conteudo">
-        <div>
+        <div className="auth-card">
           <form onSubmit={handleLogin}>
-            <p id="linhaum">Bem-vindo de volta</p>
-            <p id="linhadois">Entre para acessar seus módulos</p>
+            <p className="auth-title">Bem-vindo de volta</p>
+            <p className="auth-subtitle">Entre para acessar seus módulos</p>
 
-            {erro && <div style={{ color: 'red', marginBottom: '10px' }}>{erro}</div>}
+            {erro && <div className="auth-msg error">{erro}</div>}
 
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
+              id="email"
+              className="auth-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              id="inputentradas"
               placeholder="seu@email.com"
               required
             />
 
-            <label>Senha</label>
+            <label htmlFor="password">Senha</label>
             <input
               type="password"
+              id="password"
+              className="auth-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              id="inputentradas"
               placeholder="Sua senha"
               required
             />
 
-            <a href="#" className="esqueceusenha">Esqueceu a senha?</a>
+            <div className="auth-footer" style={{ justifyContent: 'flex-end' }}>
+              <Link to="#" className="auth-link">Esqueceu a senha?</Link>
+            </div>
 
-            <button type="submit" id="inputentradas" disabled={carregando}>
+            <button type="submit" className="auth-button" disabled={carregando}>
               {carregando ? "Entrando..." : "Entrar"}
             </button>
 
-            <p id="ou">ou</p>
+            <p className="auth-subtitle auth-separator">ou</p>
 
-            <button type="button" id="inputentradas" disabled>
+            <button type="button" className="auth-button secondary" disabled>
               Google (em breve)
             </button>
 
-            <div id="criar">
-              <p id="naotemconta">
-                Não tem uma conta?
-                <a href="/usuario/cadastro"> Criar agora</a>
+            <div className="auth-footer">
+              <p>
+                Não tem uma conta? <Link to="/usuario/cadastro">Criar agora</Link>
               </p>
             </div>
           </form>

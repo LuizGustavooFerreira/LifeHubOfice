@@ -8,6 +8,9 @@ import Habitos from "./pages/Habitos/Habitos";
 import Investimentos from "./pages/Investimentos/Investimentos";
 import Saude from "./pages/Saude/Saude";
 import Tarefas from "./pages/Tarefas/Tarefas";
+import Projetos from "./pages/Projetos/Projetos";
+import Notas from "./pages/Notas/Notas";
+import Eventos from "./pages/Eventos/Eventos";
 import "./pages/components/global.css";
 
 function App() {
@@ -15,6 +18,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/usuario/login" element={<Login />} />
         <Route path="/index" element={<Index />} />
         <Route path="/usuario/cadastro" element={<Cadastro />} />
         <Route path="/saude" element={<Saude />} />
@@ -23,6 +27,9 @@ function App() {
         <Route path="/financas" element={<Financas />} />
         <Route path="/habitos" element={<Habitos />} />
         <Route path="/tarefas" element={<Tarefas />} />
+        <Route path="/projetos" element={<Projetos />} />
+        <Route path="/notas" element={<Notas />} />
+        <Route path="/eventos" element={<Eventos />} />
       </Routes>
     </BrowserRouter>
   );

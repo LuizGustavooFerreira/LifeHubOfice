@@ -305,6 +305,13 @@ export default function Index() {
 
         {/* MODULOS */}
 
+        <div className="modules-section">
+          <div>
+            <p className="modules-label">Módulos</p>
+            <h2 className="modules-title">Acesse seus principais recursos</h2>
+          </div>
+        </div>
+
         <div className="index-grid">
 
           <div className="index-card" onClick={() => navigate("/saude")}>
@@ -335,6 +342,21 @@ export default function Index() {
           <div className="index-card" onClick={() => navigate("/tarefas")}>
             <div className="icone">✅</div>
             <p>Tarefas</p>
+          </div>
+
+          <div className="index-card" onClick={() => navigate("/projetos")}>
+            <div className="icone">📌</div>
+            <p>Projetos</p>
+          </div>
+
+          <div className="index-card" onClick={() => navigate("/notas")}>
+            <div className="icone">📝</div>
+            <p>Notas</p>
+          </div>
+
+          <div className="index-card" onClick={() => navigate("/eventos")}>
+            <div className="icone">📅</div>
+            <p>Eventos</p>
           </div>
 
         </div>
