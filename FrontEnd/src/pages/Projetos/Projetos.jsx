@@ -64,14 +64,12 @@ export default function Projetos() {
   }
 
   return (
-    <Layout>
-      <div className="page-container">
-        <h1>📌 Projetos</h1>
-        <p className="page-sub">Organize e acompanhe seus projetos</p>
+    <Layout titulo="Projetos">
+      <p className="page-sub">Organize e acompanhe seus projetos</p>
 
-        {erro && <div className="erro">{erro}</div>}
+      {erro && <div className="erro">{erro}</div>}
 
-        <div className="form-section">
+      <div className="form-section">
           <input
             type="text"
             placeholder="Título do projeto"
@@ -127,7 +125,6 @@ export default function Projetos() {
             </div>
           ))}
         </div>
-      </div>
     </Layout>
   );
 }

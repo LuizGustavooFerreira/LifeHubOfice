@@ -1,89 +1,130 @@
 .card {
-    background: white;
-    padding: 16px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .card input,
-  .card select {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #F1F5F9;
-  }
-  
-  .card button {
-    background: #2563EB;
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 22px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+}
+
+.card input,
+.card select,
+.card textarea {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(209, 213, 219, 0.85);
+  background: #f8fafc;
+  font: inherit;
+  min-width: 170px;
+}
+
+.card input:focus,
+.card select:focus,
+.card textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
   .lista {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    grid-template-columns: 1fr;
   }
-  
-  .item {
-    background: white;
-    padding: 14px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .item p {
-    font-size: 12px;
-    color: #6B7280;
-  }
-  
-  .acoes{
-    display: flex;
-    gap: 10px;
-  }
-  
-  .btn-marcar{
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.2s;
-  }
-  
-  .btn-marcar:hover{
-    background: #1d4ed8;
-  }
-  
-  .btn-feito{
-    background: #16a34a;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-weight: 600;
-  }
-  
-  .btn-excluir{
-    background: #ef4444;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .btn-excluir:hover{
-    background: #dc2626;
-  }
+}
+
+.item {
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+}
+
+.item p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.btn-marcar,
+.btn-adicionar,
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn-marcar:hover,
+.btn-adicionar:hover,
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-feito {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+.btn-excluir {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.btn-excluir:hover {
+  background: #dc2626;
+}

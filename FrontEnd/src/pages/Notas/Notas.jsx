@@ -72,14 +72,12 @@ export default function Notas() {
   const notasNormais = notasFiltradas.filter(n => !n.fixada);
 
   return (
-    <Layout>
-      <div className="page-container">
-        <h1>📝 Notas</h1>
-        <p className="page-sub">Capture suas ideias e pensamentos</p>
+    <Layout titulo="Notas">
+      <p className="page-sub">Capture suas ideias e pensamentos</p>
 
-        {erro && <div className="erro">{erro}</div>}
+      {erro && <div className="erro">{erro}</div>}
 
-        <div className="notas-editor">
+      <div className="notas-editor">
           <input
             type="text"
             placeholder="Título (opcional)"
@@ -174,7 +172,6 @@ export default function Notas() {
             <p>Nenhuma nota encontrada</p>
           </div>
         )}
-      </div>
     </Layout>
   );
 }

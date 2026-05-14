@@ -1,6 +1,6 @@
 .notas-editor {
-  background: #F9FAFB;
-  border: 1px solid #E5E7EB;
+  background: var(--surface-strong);
+  border: 1px solid rgba(229, 231, 235, 0.95);
   border-radius: 16px;
   padding: 24px;
   margin-top: 24px;
@@ -86,8 +86,8 @@
 }
 
 .nota-card {
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  background: var(--surface);
+  border: 1px solid rgba(229, 231, 235, 0.95);
   border-radius: 14px;
   padding: 20px;
   display: flex;

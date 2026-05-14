@@ -265,14 +265,8 @@ export default function Habitos() {
                   </strong>
                 </p>
 
-                <p>
-                  Status:
-                  <strong>
-                    {" "}
-                    {feitoHoje
-                      ? "Concluído hoje"
-                      : "Pendente"}
-                  </strong>
+                <p className="status-pill">
+                  {feitoHoje ? "Concluído hoje" : "Pendente"}
                 </p>
 
               </div>

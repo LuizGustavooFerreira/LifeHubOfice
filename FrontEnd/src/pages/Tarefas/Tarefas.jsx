@@ -188,19 +188,31 @@ export default function Tarefas() {
 
         <div className="tarefas-filtros">
 
-          <button onClick={() => setFiltro("todas")}>
+          <button
+            className={filtro === "todas" ? "active" : ""}
+            onClick={() => setFiltro("todas")}
+          >
             Todas
           </button>
 
-          <button onClick={() => setFiltro("ativas")}>
+          <button
+            className={filtro === "ativas" ? "active" : ""}
+            onClick={() => setFiltro("ativas")}
+          >
             Ativas
           </button>
 
-          <button onClick={() => setFiltro("concluidas")}>
+          <button
+            className={filtro === "concluidas" ? "active" : ""}
+            onClick={() => setFiltro("concluidas")}
+          >
             Concluídas
           </button>
 
-          <button onClick={() => setFiltro("atrasadas")}>
+          <button
+            className={filtro === "atrasadas" ? "active" : ""}
+            onClick={() => setFiltro("atrasadas")}
+          >
             Atrasadas
           </button>
 

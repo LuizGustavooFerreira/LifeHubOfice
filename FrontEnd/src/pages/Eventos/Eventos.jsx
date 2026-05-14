@@ -76,14 +76,12 @@ export default function Eventos() {
   };
 
   return (
-    <Layout>
-      <div className="page-container">
-        <h1>📅 Eventos</h1>
-        <p className="page-sub">Planeje e organize seus compromissos</p>
+    <Layout titulo="Eventos">
+      <p className="page-sub">Planeje e organize seus compromissos</p>
 
-        {erro && <div className="erro">{erro}</div>}
+      {erro && <div className="erro">{erro}</div>}
 
-        <div className="form-section">
+      <div className="form-section">
           <input
             type="text"
             placeholder="Título do evento"
@@ -161,7 +159,6 @@ export default function Eventos() {
             ))
           )}
         </div>
-      </div>
     </Layout>
   );
 }

@@ -1,0 +1,130 @@
+.cards-resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.resumo-card {
+  background: var(--surface);
+  padding: 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+}
+
+.resumo-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.resumo-card p {
+  font-size: 28px;
+  margin: 0;
+  color: var(--text);
+}
+
+.card {
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 22px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+}
+
+.card input,
+.card select {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(209, 213, 219, 0.85);
+  background: #f8fafc;
+  font: inherit;
+  min-width: 180px;
+}
+
+.card button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.card button:hover {
+  transform: translateY(-1px);
+  background: var(--primary-dark);
+}
+
+.lista {
+  display: grid;
+  gap: 16px;
+}
+
+.item {
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.08);
+}
+
+.item p,
+.item small {
+  margin: 4px 0 0 0;
+  color: var(--muted);
+}
+
+.item.entrada {
+  border-left: 4px solid var(--success);
+}
+
+.item.saida {
+  border-left: 4px solid var(--danger);
+}
+
+.btn-excluir {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-excluir:hover {
+  background: #dc2626;
+}
+
+.erro {
+  margin-bottom: 16px;
+  color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

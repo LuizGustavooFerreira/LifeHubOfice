@@ -13,6 +13,10 @@ export default function Index() {
   const [investimentos, setInvestimentos] = useState([]);
   const [tarefas, setTarefas] = useState([]);
   const [habitos, setHabitos] = useState([]);
+  const [habitosConcluidosHoje, setHabitosConcluidosHoje] = useState(0);
+  const [projetos, setProjetos] = useState([]);
+  const [notas, setNotas] = useState([]);
+  const [eventos, setEventos] = useState([]);
   const [saude, setSaude] = useState(null);
   const [transacoes, setTransacoes] = useState([]);
 
@@ -28,12 +32,20 @@ export default function Index() {
         investimentosRes,
         tarefasRes,
         habitosRes,
+        habitosRegistrosRes,
+        projetosRes,
+        notasRes,
+        eventosRes,
         saudeRes
       ] = await Promise.all([
         api.get("transacoes/"),
         api.get("investimentos/"),
         api.get("tarefas/"),
         api.get("habitos/"),
+        api.get("habitos-registros/"),
+        api.get("projetos/"),
+        api.get("notas/"),
+        api.get("eventos/"),
         api.get("saude/")
       ]);
 
@@ -55,7 +67,29 @@ export default function Index() {
       setTarefas(tarefasRes.data || []);
 
       // HÁBITOS
-      setHabitos(habitosRes.data || []);
+      const habitosData = habitosRes.data || [];
+      setHabitos(habitosData);
+
+      const registros = habitosRegistrosRes.data || [];
+      const hoje = new Date().toISOString().split("T")[0];
+      const concluidosHoje = habitosData.filter(h =>
+        registros.some(
+          r =>
+            r.habito === h.id &&
+            r.data_registro === hoje &&
+            r.concluido
+        )
+      ).length;
+      setHabitosConcluidosHoje(concluidosHoje);
+
+      // PROJETOS
+      setProjetos(projetosRes.data || []);
+
+      // NOTAS
+      setNotas(notasRes.data || []);
+
+      // EVENTOS
+      setEventos(eventosRes.data || []);
 
       // SAÚDE
       if (saudeRes.data.length > 0) {
@@ -178,7 +212,7 @@ export default function Index() {
                   <p>Tarefas pendentes</p>
 
                   <h2>
-                    {tarefas.filter(t => !t.concluida).length}
+                    {tarefas.filter(t => t.status !== "concluida").length}
                   </h2>
                 </div>
 
@@ -187,7 +221,7 @@ export default function Index() {
               <div className="card-footer">
                 <span>
                   {
-                    tarefas.filter(t => t.concluida).length
+                    tarefas.filter(t => t.status === "concluida").length
                   } concluídas
                 </span>
               </div>
@@ -204,9 +238,7 @@ export default function Index() {
                   <p>Hábitos concluídos</p>
 
                   <h2>
-                    {
-                      habitos.filter(h => h.ultima_conclusao).length
-                    }
+                    {habitosConcluidosHoje}
                     /
                     {habitos.length}
                   </h2>
@@ -217,6 +249,59 @@ export default function Index() {
               <div className="card-footer">
                 <span>
                   hábitos ativos
+                </span>
+              </div>
+            </div>
+
+            {/* PROJETOS */}
+
+            <div className="dashboard-card teal">
+              <div className="card-top">
+                <span className="icone">📌</span>
+                <div>
+                  <p>Projetos em andamento</p>
+                  <h2>
+                    {projetos.filter(p => p.status !== "concluido").length}
+                  </h2>
+                </div>
+              </div>
+              <div className="card-footer">
+                <span>
+                  {projetos.length} projetos
+                </span>
+              </div>
+            </div>
+
+            {/* NOTAS */}
+
+            <div className="dashboard-card pink">
+              <div className="card-top">
+                <span className="icone">📝</span>
+                <div>
+                  <p>Notas criadas</p>
+                  <h2>{notas.length}</h2>
+                </div>
+              </div>
+              <div className="card-footer">
+                <span>
+                  {notas.filter(n => n.fixada).length} fixadas
+                </span>
+              </div>
+            </div>
+
+            {/* EVENTOS */}
+
+            <div className="dashboard-card cyan">
+              <div className="card-top">
+                <span className="icone">📅</span>
+                <div>
+                  <p>Eventos agendados</p>
+                  <h2>{eventos.length}</h2>
+                </div>
+              </div>
+              <div className="card-footer">
+                <span>
+                  {eventos.filter(e => new Date(e.data_inicio) >= new Date()).length} futuros
                 </span>
               </div>
             </div>

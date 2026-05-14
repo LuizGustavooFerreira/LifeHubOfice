@@ -1,58 +1,77 @@
 .card {
-    background: white;
-    padding: 16px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .card input {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #F1F5F9;
-  }
-  
-  .card button {
-    background: #2563EB;
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-  }
-  
-  .lista {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .item {
-    background: white;
-    padding: 14px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .item p {
-    font-size: 12px;
-    color: #6B7280;
-  }
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 22px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+}
 
-  .btn-excluir{
-    background: #ef4444;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-  }
+.card input {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(209, 213, 219, 0.85);
+  background: #f8fafc;
+  color: var(--text);
+}
   
-  .btn-excluir:hover{
-    background: #dc2626;
-  }
+.card button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.card button:hover {
+  transform: translateY(-1px);
+  background: var(--primary-dark);
+}
+
+.lista {
+  display: grid;
+  gap: 14px;
+}
+
+.item {
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+}
+
+.item p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+
+.btn-excluir {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-excluir:hover {
+  background: #dc2626;
+}
