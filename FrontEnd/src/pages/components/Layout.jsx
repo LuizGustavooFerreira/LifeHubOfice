@@ -21,7 +21,7 @@ export default function Layout({ children, titulo }) {
           </h1>
 
           <div className="nav-actions">
-            <button onClick={() => navigate("/index")}>←</button>
+            <button className="btn-voltar" onClick={() => navigate("/index")}>← Voltar</button>
             <button className="btn-sair" onClick={handleLogout}>Sair</button>
           </div>
         </nav>

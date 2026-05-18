@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#g)"/>
+  <!-- Stylized L built from two rounded rectangles for crisp rendering as favicon -->
+  <rect x="20" y="16" width="8" height="44" rx="2" fill="#FFFFFF" />
+  <rect x="20" y="52" width="26" height="8" rx="2" fill="#FFFFFF" />
+</svg>

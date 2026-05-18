@@ -98,6 +98,20 @@ class ProjetoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projeto
         fields = '__all__'
+        read_only_fields = ['usuario']
+
+    def create(self, validated_data):
+        # Se já for criado como concluído, garante progresso 100
+        if validated_data.get('status') == 'concluido':
+            validated_data['progresso'] = 100
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        # Se status for atualizado para concluido, define progresso como 100
+        status = validated_data.get('status', instance.status)
+        if status == 'concluido':
+            validated_data['progresso'] = 100
+        return super().update(instance, validated_data)
 
 
 class ProjetoTarefaSerializer(serializers.ModelSerializer):
@@ -112,10 +126,11 @@ class NotaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class EventoSerializer(serializers.ModelSerializer):
+class NotaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Evento
+        model = Nota
         fields = '__all__'
+        read_only_fields = ['usuario']
 
 
 # ================= SAÚDE =================
@@ -181,3 +196,9 @@ class InvestimentoSerializer(serializers.ModelSerializer):
         rendimento = obj.valor_investido * ((1 + taxa_decimal) ** anos) - obj.valor_investido
         
         return float(rendimento)
+    
+class EventoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evento
+        fields = '__all__'
+        read_only_fields = ['usuario']

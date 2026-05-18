@@ -112,6 +112,19 @@ button:hover {
     cursor: pointer;
   }
 
+  .btn-voltar {
+    background: #F3F4F6;
+    color: var(--text);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
   .btn-marcar{
     background: #2563eb;
     color: white;
@@ -171,16 +184,17 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-  .page-container {
-    max-width: 100%;
-    margin: 16px auto;
-    padding: 18px;
-    border-radius: 16px;
+  .nav-actions {
+    flex-direction: row;
+    gap: 8px;
   }
 
-  .page-container h1 {
-    font-size: 24px;
-    margin-bottom: 12px;
+  .nav-actions button,
+  .btn-voltar {
+    min-width: 88px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
   }
 
   .page-container h2 {
