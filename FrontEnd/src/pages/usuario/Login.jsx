@@ -15,7 +15,7 @@ export default function Login() {
     setCarregando(true);
 
     try {
-      const resposta = await fetch("http://localhost:8000/api/token/", {
+      const resposta = await fetch("https://SEUAPP.up.railway.app/api/token/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -129,15 +129,15 @@ Press CTRL+C to quit.
 ### Testes Backend
 ```bash
 # 1. Admin
-Abrir: http://localhost:8000/admin
+Abrir: https://SEUAPP.up.railway.app/admin
 Login: admin@example.com / sua_senha
 
 # 2. API
-Abrir: http://localhost:8000/api/
+Abrir: https://SEUAPP.up.railway.app/api/
 Deve listar endpoints
 
 # 3. Token
-POST http://localhost:8000/api/token/
+POST https://SEUAPP.up.railway.app/api/token/
 Body: { "email": "admin@example.com", "password": "sua_senha" }
 Deve retornar: { "access": "...", "refresh": "...", ... }
 ```
@@ -241,24 +241,24 @@ npm run dev
 ### Terminal 3 - Testes Manual
 ```bash
 # 1. Signup
-curl -X POST http://localhost:8000/api/usuarios/ \
+curl -X POST https://SEUAPP.up.railway.app/api/usuarios/ \
   -H "Content-Type: application/json" \
   -d '{"email":"teste@example.com","nome":"Teste","password":"senha123"}'
 
 # 2. Login
-curl -X POST http://localhost:8000/api/token/ \
+curl -X POST https://SEUAPP.up.railway.app/api/token/ \
   -H "Content-Type: application/json" \
   -d '{"email":"teste@example.com","password":"senha123"}'
 
 # 3. Criar Tarefa (substitua TOKEN)
 TOKEN="seu_access_token_aqui"
-curl -X POST http://localhost:8000/api/tarefas/ \
+curl -X POST https://SEUAPP.up.railway.app/api/tarefas/ \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"titulo":"Teste","status":"pendente","data_vencimento":"2026-05-15"}'
 
 # 4. Listar Tarefas
-curl -X GET http://localhost:8000/api/tarefas/ \
+curl -X GET https://SEUAPP.up.railway.app/api/tarefas/ \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -268,7 +268,7 @@ curl -X GET http://localhost:8000/api/tarefas/ \
 
 ### Backend
 - [ ] `python manage.py runserver` funciona
-- [ ] http://localhost:8000/admin carrega
+- [ ] https://SEUAPP.up.railway.app/admin carrega
 - [ ] Admin login funciona
 - [ ] POST /api/token/ retorna tokens
 - [ ] GET /api/tarefas/ retorna lista (protegido)
@@ -322,7 +322,7 @@ python manage.py runserver
 ### Erro: `CORS error` no frontend
 ```
 Frontend: http://localhost:5173
-Backend: http://localhost:8000
+Backend: https://SEUAPP.up.railway.app
 
 Verificar settings.py:
 CORS_ALLOWED_ORIGINS = [

@@ -2,7 +2,7 @@
 
 ## 1. SIGNUP (Criar Conta)
 
-**POST** `http://localhost:8000/api/usuarios/`
+**POST** `https://SEUAPP.up.railway.app/api/usuarios/`
 
 ```json
 {
@@ -30,7 +30,7 @@
 
 ## 2. LOGIN (Obter Token)
 
-**POST** `http://localhost:8000/api/token/`
+**POST** `https://SEUAPP.up.railway.app/api/token/`
 
 ```json
 {
@@ -56,7 +56,7 @@
 
 ## 3. CRIAR TAREFA
 
-**POST** `http://localhost:8000/api/tarefas/`
+**POST** `https://SEUAPP.up.railway.app/api/tarefas/`
 
 **Headers:**
 ```
@@ -93,7 +93,7 @@ Content-Type: application/json
 
 ## 4. LISTAR TAREFAS
 
-**GET** `http://localhost:8000/api/tarefas/`
+**GET** `https://SEUAPP.up.railway.app/api/tarefas/`
 
 **Headers:**
 ```
@@ -123,7 +123,7 @@ Authorization: Bearer {access_token}
 
 ## 5. ATUALIZAR TAREFA
 
-**PATCH** `http://localhost:8000/api/tarefas/{id}/`
+**PATCH** `https://SEUAPP.up.railway.app/api/tarefas/{id}/`
 
 **Headers:**
 ```
@@ -145,7 +145,7 @@ Content-Type: application/json
 
 ## 6. DELETAR TAREFA
 
-**DELETE** `http://localhost:8000/api/tarefas/{id}/`
+**DELETE** `https://SEUAPP.up.railway.app/api/tarefas/{id}/`
 
 **Headers:**
 ```
@@ -158,7 +158,7 @@ Authorization: Bearer {access_token}
 
 ## 7. REGISTRAR HÁBITO HOJE
 
-**POST** `http://localhost:8000/api/habitos-registros/`
+**POST** `https://SEUAPP.up.railway.app/api/habitos-registros/`
 
 **Headers:**
 ```
@@ -190,7 +190,7 @@ Content-Type: application/json
 
 ## 8. REGISTRAR PESO/ALTURA (Saúde)
 
-**POST** `http://localhost:8000/api/saude/`
+**POST** `https://SEUAPP.up.railway.app/api/saude/`
 
 **Headers:**
 ```
@@ -223,7 +223,7 @@ Content-Type: application/json
 
 ## 9. REGISTRAR EXERCÍCIO
 
-**POST** `http://localhost:8000/api/exercicios/`
+**POST** `https://SEUAPP.up.railway.app/api/exercicios/`
 
 **Headers:**
 ```
@@ -257,7 +257,7 @@ Content-Type: application/json
 
 ## 10. REGISTRAR INVESTIMENTO
 
-**POST** `http://localhost:8000/api/investimentos/`
+**POST** `https://SEUAPP.up.railway.app/api/investimentos/`
 
 **Headers:**
 ```
@@ -295,7 +295,7 @@ Content-Type: application/json
 
 ## 11. REFRESH TOKEN
 
-**POST** `http://localhost:8000/api/token/refresh/`
+**POST** `https://SEUAPP.up.railway.app/api/token/refresh/`
 
 **Headers:**
 ```
@@ -323,7 +323,7 @@ Content-Type: application/json
 ```javascript
 // Fazer requisição com token
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/'
+  baseURL: 'https://SEUAPP.up.railway.app/api/'
 });
 
 // Interceptor para adicionar token
@@ -375,18 +375,18 @@ await api.post('tarefas/', { titulo: 'Nova tarefa', ... });
 
 ```bash
 # Login
-curl -X POST http://localhost:8000/api/token/ \
+curl -X POST https://SEUAPP.up.railway.app/api/token/ \
   -H "Content-Type: application/json" \
   -d '{"email":"joao@example.com","password":"senha123456"}'
 
 # Criar tarefa (substitua TOKEN)
-curl -X POST http://localhost:8000/api/tarefas/ \
+curl -X POST https://SEUAPP.up.railway.app/api/tarefas/ \
   -H "Authorization: Bearer TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"titulo":"Teste","status":"pendente","data_vencimento":"2026-05-15"}'
 
 # Listar tarefas
-curl -X GET http://localhost:8000/api/tarefas/ \
+curl -X GET https://SEUAPP.up.railway.app/api/tarefas/ \
   -H "Authorization: Bearer TOKEN"
 ```
 
