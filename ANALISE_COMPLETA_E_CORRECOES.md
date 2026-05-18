@@ -297,7 +297,7 @@ export default api;
 #### 4.2 `src/pages/usuario/Login.jsx`
 ```javascript
 // ✓ Usa EMAIL ao invés de username
-const resposta = await fetch("https://SEUAPP.up.railway.app/api/token/", {
+const resposta = await fetch("localhost:8000/api/token/", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -315,7 +315,7 @@ localStorage.setItem("refresh_token", dados.refresh);
 ```javascript
 // ✓ NOVO - Funcional!
 async function handleCadastro(e) {
-  const resposta = await fetch("https://SEUAPP.up.railway.app/api/usuarios/", {
+  const resposta = await fetch("localhost:8000/api/usuarios/", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -444,7 +444,7 @@ npm run dev
 
 ### 4. Verificar via Django Admin
 ```
-1. Abrir https://SEUAPP.up.railway.app/admin
+1. Abrir localhost:8000/admin
 2. Login com superuser
 3. Ver dados criados:
    - Tarefas
