@@ -110,13 +110,16 @@ LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
+
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/assets/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "../FrontEnd/dist/assets")
+    os.path.join(BASE_DIR, '../FrontEnd/dist/assets'),
 ]
+
+WHITENOISE_USE_FINDERS = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
