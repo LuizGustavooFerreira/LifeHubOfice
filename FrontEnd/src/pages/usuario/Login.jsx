@@ -15,7 +15,7 @@ export default function Login() {
     setCarregando(true);
 
     try {
-      const resposta = await fetch("localhost:8000/api/token/", {
+      const resposta = await fetch(""/api""/api"/token/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

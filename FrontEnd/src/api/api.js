@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://lifehubofice.onrender.com/api"
+  baseURL: "/api"
 });
 
 // Adiciona token JWT a todas as requisições

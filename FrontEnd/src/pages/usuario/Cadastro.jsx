@@ -35,7 +35,7 @@ function Cadastro() {
     setCarregando(true)
 
     try {
-      const resposta = await fetch("localhost:8000/api/usuarios/", {
+      const resposta = await fetch(""/api""/api"/usuarios/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -260,12 +260,12 @@ router.register(r'investimentos', InvestimentoViewSet, basename='investimentos')
 
 ### FASE 4: FRONTEND - API REST
 
-#### 4.1 `src/api/api.js` - Interceptors JWT
+#### 4.1 `src"/api""/api".js` - Interceptors JWT
 ```javascript
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/"
+  baseURL: "http://127.0.0.1:8000"/api"/"
 });
 
 // ✓ Adiciona token a TODAS as requisições
@@ -297,7 +297,7 @@ export default api;
 #### 4.2 `src/pages/usuario/Login.jsx`
 ```javascript
 // ✓ Usa EMAIL ao invés de username
-const resposta = await fetch("localhost:8000/api/token/", {
+const resposta = await fetch(""/api""/api"/token/", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -315,7 +315,7 @@ localStorage.setItem("refresh_token", dados.refresh);
 ```javascript
 // ✓ NOVO - Funcional!
 async function handleCadastro(e) {
-  const resposta = await fetch("localhost:8000/api/usuarios/", {
+  const resposta = await fetch(""/api""/api"/usuarios/", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -386,17 +386,17 @@ python manage.py runserver
 
 **Endpoints JWT:**
 ```
-POST   /api/token/              ← Login (email + password)
-POST   /api/token/refresh/      ← Refresh token
-GET    /api/usuarios/           ← Lista usuários (protegido)
-POST   /api/usuarios/           ← Cadastro (público)
+POST   "/api"/token/              ← Login (email + password)
+POST   "/api"/token/refresh/      ← Refresh token
+GET    "/api"/usuarios/           ← Lista usuários (protegido)
+POST   "/api"/usuarios/           ← Cadastro (público)
 ```
 
 **Novos Endpoints:**
 ```
-GET/POST   /api/saude/          ← SaudeRegistro
-GET/POST   /api/exercicios/     ← ExercicioRegistro
-GET/POST   /api/investimentos/  ← Investimento
+GET/POST   "/api"/saude/          ← SaudeRegistro
+GET/POST   "/api"/exercicios/     ← ExercicioRegistro
+GET/POST   "/api"/investimentos/  ← Investimento
 ```
 
 ### Frontend
@@ -407,7 +407,7 @@ cd c:\Users\luizg\LifeHubOfice\FrontEnd
 
 # 2. Rodar desenvolvimento
 npm run dev
-# Abre em: http://localhost:5173
+# Abre em: http://"/api":5173
 ```
 
 ---
@@ -416,7 +416,7 @@ npm run dev
 
 ### 1. Login/Cadastro
 ```
-1. Abrir http://localhost:5173/usuario/cadastro
+1. Abrir http://"/api":5173/usuario/cadastro
 2. Criar conta: email@test.com / senha123 / Nome Teste
 3. Ir para login
 4. Fazer login com email + senha
@@ -444,7 +444,7 @@ npm run dev
 
 ### 4. Verificar via Django Admin
 ```
-1. Abrir localhost:8000/admin
+1. Abrir "/api"/admin
 2. Login com superuser
 3. Ver dados criados:
    - Tarefas
@@ -536,7 +536,7 @@ vite
 ```
 ❌ Frontend em porta diferente
 ✓ Adicionar em settings.py:
-   CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+   CORS_ALLOWED_ORIGINS = ["http://"/api":5173"]
 ```
 
 ---

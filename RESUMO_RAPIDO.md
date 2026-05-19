@@ -70,7 +70,7 @@ npm run dev
 ```
 
 ### Teste
-1. Ir para http://localhost:5173/usuario/cadastro
+1. Ir para http://"/api":5173/usuario/cadastro
 2. Criar conta
 3. Login
 4. Usar aplicação
@@ -96,7 +96,7 @@ backend/app/admin.py               (+3 registros)
 
 ### Modificados Frontend
 ```
-FrontEnd/src/api/api.js            (interceptors)
+FrontEnd/src"/api""/api".js            (interceptors)
 FrontEnd/src/pages/usuario/Login.jsx (email)
 FrontEnd/src/pages/usuario/Cadastro.jsx (funcional)
 FrontEnd/src/pages/Tarefas/Tarefas.jsx (API)

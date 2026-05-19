@@ -2,7 +2,7 @@
 
 ## 1. SIGNUP (Criar Conta)
 
-**POST** `localhost:8000/api/usuarios/`
+**POST** `"/api""/api"/usuarios/`
 
 ```json
 {
@@ -30,7 +30,7 @@
 
 ## 2. LOGIN (Obter Token)
 
-**POST** `localhost:8000/api/token/`
+**POST** `"/api""/api"/token/`
 
 ```json
 {
@@ -56,7 +56,7 @@
 
 ## 3. CRIAR TAREFA
 
-**POST** `localhost:8000/api/tarefas/`
+**POST** `"/api""/api"/tarefas/`
 
 **Headers:**
 ```
@@ -93,7 +93,7 @@ Content-Type: application/json
 
 ## 4. LISTAR TAREFAS
 
-**GET** `localhost:8000/api/tarefas/`
+**GET** `"/api""/api"/tarefas/`
 
 **Headers:**
 ```
@@ -123,7 +123,7 @@ Authorization: Bearer {access_token}
 
 ## 5. ATUALIZAR TAREFA
 
-**PATCH** `localhost:8000/api/tarefas/{id}/`
+**PATCH** `"/api""/api"/tarefas/{id}/`
 
 **Headers:**
 ```
@@ -145,7 +145,7 @@ Content-Type: application/json
 
 ## 6. DELETAR TAREFA
 
-**DELETE** `localhost:8000/api/tarefas/{id}/`
+**DELETE** `"/api""/api"/tarefas/{id}/`
 
 **Headers:**
 ```
@@ -158,7 +158,7 @@ Authorization: Bearer {access_token}
 
 ## 7. REGISTRAR HÁBITO HOJE
 
-**POST** `localhost:8000/api/habitos-registros/`
+**POST** `"/api""/api"/habitos-registros/`
 
 **Headers:**
 ```
@@ -190,7 +190,7 @@ Content-Type: application/json
 
 ## 8. REGISTRAR PESO/ALTURA (Saúde)
 
-**POST** `localhost:8000/api/saude/`
+**POST** `"/api""/api"/saude/`
 
 **Headers:**
 ```
@@ -223,7 +223,7 @@ Content-Type: application/json
 
 ## 9. REGISTRAR EXERCÍCIO
 
-**POST** `localhost:8000/api/exercicios/`
+**POST** `"/api""/api"/exercicios/`
 
 **Headers:**
 ```
@@ -257,7 +257,7 @@ Content-Type: application/json
 
 ## 10. REGISTRAR INVESTIMENTO
 
-**POST** `localhost:8000/api/investimentos/`
+**POST** `"/api""/api"/investimentos/`
 
 **Headers:**
 ```
@@ -295,7 +295,7 @@ Content-Type: application/json
 
 ## 11. REFRESH TOKEN
 
-**POST** `localhost:8000/api/token/refresh/`
+**POST** `"/api""/api"/token/refresh/`
 
 **Headers:**
 ```
@@ -323,7 +323,7 @@ Content-Type: application/json
 ```javascript
 // Fazer requisição com token
 const api = axios.create({
-  baseURL: 'localhost:8000/api/'
+  baseURL: '"/api""/api"/'
 });
 
 // Interceptor para adicionar token
@@ -375,18 +375,18 @@ await api.post('tarefas/', { titulo: 'Nova tarefa', ... });
 
 ```bash
 # Login
-curl -X POST localhost:8000/api/token/ \
+curl -X POST "/api""/api"/token/ \
   -H "Content-Type: application/json" \
   -d '{"email":"joao@example.com","password":"senha123456"}'
 
 # Criar tarefa (substitua TOKEN)
-curl -X POST localhost:8000/api/tarefas/ \
+curl -X POST "/api""/api"/tarefas/ \
   -H "Authorization: Bearer TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"titulo":"Teste","status":"pendente","data_vencimento":"2026-05-15"}'
 
 # Listar tarefas
-curl -X GET localhost:8000/api/tarefas/ \
+curl -X GET "/api""/api"/tarefas/ \
   -H "Authorization: Bearer TOKEN"
 ```
 
@@ -396,7 +396,7 @@ curl -X GET localhost:8000/api/tarefas/ \
 
 1. Importe esta collection
 2. Configure variáveis: `base_url`, `token`
-3. Use em todas as requisições: `{{base_url}}/api/tarefas/`
+3. Use em todas as requisições: `{{base_url}}"/api"/tarefas/`
 4. Adicione header: `Authorization: Bearer {{token}}`
 
 ---

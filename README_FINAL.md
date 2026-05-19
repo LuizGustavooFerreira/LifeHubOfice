@@ -68,7 +68,7 @@ Frontend: localStorage com dias: { "2026-05-11": true }
 Sem: persistência, sincronização
 
 ✅ DEPOIS:
-API: POST /api/habitos-registros/
+API: POST "/api"/habitos-registros/
 Backend: Habito + HabitoRegistro models
 Sincronização: Em tempo real
 Multi-device: Funcional ✓
@@ -83,7 +83,7 @@ localStorage com { valor, tipo, descricao }
 Sem: banco de dados
 
 ✅ DEPOIS:
-API: POST /api/transacoes/
+API: POST "/api"/transacoes/
 Backend: Transacao + Conta + Categoria
 Persistência: PostgreSQL
 ```
@@ -93,7 +93,7 @@ Persistência: PostgreSQL
 **Problema:** Modelos não existiam
 ```
 ❌ ANTES:
-Páginas existiam mas models/API não existiam
+Páginas existiam mas models"/api" não existiam
 localStorage frágil
 
 ✅ DEPOIS:
@@ -113,7 +113,7 @@ localStorage frágil
 <form action=""> - não fazia nada
 
 ✅ DEPOIS:
-POST /api/usuarios/ - funcional 100%
+POST "/api"/usuarios/ - funcional 100%
 ✓ Validação frontend + backend
 ✓ Feedback ao usuário
 ✓ Redireciona para login após sucesso
@@ -124,10 +124,10 @@ POST /api/usuarios/ - funcional 100%
 **Problema:** Usuário A via dados de Usuário B
 ```
 ❌ ANTES:
-GET /api/tarefas/ → todos os usuários viam todas as tarefas
+GET "/api"/tarefas/ → todos os usuários viam todas as tarefas
 
 ✅ DEPOIS:
-GET /api/tarefas/ → cada user vê apenas suas tarefas
+GET "/api"/tarefas/ → cada user vê apenas suas tarefas
 Implementado em: todos os 13 viewsets
 ```
 
@@ -204,7 +204,7 @@ npm run dev
 
 ### Teste
 ```
-1. Abrir http://localhost:5173/usuario/cadastro
+1. Abrir http://"/api":5173/usuario/cadastro
 2. Criar conta
 3. Login com email + senha
 4. Usar aplicação
@@ -222,7 +222,7 @@ npm run dev
    - Auto-logout ao expirar
 
 ✅ CORS Protegido
-   - Apenas localhost:5173
+   - Apenas "/api":5173
 
 ✅ Row-level Filtering
    - Usuário A NÃO vê dados de Usuário B

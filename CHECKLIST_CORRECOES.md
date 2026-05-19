@@ -39,11 +39,11 @@
 - [x] ✅ Criado com row-level filtering
 
 ### 5. ENDPOINTS FALTANDO
-- [x] ❌ `/api/saude/`: não existia
+- [x] ❌ `"/api"/saude/`: não existia
 - [x] ✅ Registrado em urls.py
-- [x] ❌ `/api/exercicios/`: não existia
+- [x] ❌ `"/api"/exercicios/`: não existia
 - [x] ✅ Registrado em urls.py
-- [x] ❌ `/api/investimentos/`: não existia
+- [x] ❌ `"/api"/investimentos/`: não existia
 - [x] ✅ Registrado em urls.py
 
 ### 6. TAREFAS
@@ -97,7 +97,7 @@
 
 ### 12. CADASTRO
 - [x] ❌ Cadastro.jsx não era funcional (action="")
-- [x] ✅ Agora faz POST para `/api/usuarios/`
+- [x] ✅ Agora faz POST para `"/api"/usuarios/`
 - [x] ❌ Sem validação
 - [x] ✅ Validação no frontend + backend
 - [x] ❌ Sem feedback ao usuário
@@ -115,7 +115,7 @@
 - [x] ❌ Sem tratamento de 401
 - [x] ✅ Interceptor redireciona para login ao receber 401
 - [x] ❌ Sem suporte a refresh token
-- [x] ✅ Frontend pode chamar `/api/token/refresh/`
+- [x] ✅ Frontend pode chamar `"/api"/token/refresh/`
 
 ### 15. CADASTRO USUÁRIO
 - [x] ❌ Novo endpoint não existia
@@ -195,7 +195,7 @@
 
 ### Frontend (9 arquivos)
 ```
-✓ src/api/api.js                ← interceptors
+✓ src"/api""/api".js                ← interceptors
 ✓ src/pages/usuario/Login.jsx   ← email + tokens
 ✓ src/pages/usuario/Cadastro.jsx ← funcional
 ✓ src/pages/Tarefas/Tarefas.jsx     ← API REST

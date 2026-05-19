@@ -78,7 +78,7 @@ DATABASES = {
         'NAME': 'LifeHubOfice',
         'USER': 'postgres',
         'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'HOST': '"/api"',
         'PORT': '5432',
     }
 }
@@ -129,15 +129,15 @@ Press CTRL+C to quit.
 ### Testes Backend
 ```bash
 # 1. Admin
-Abrir: localhost:8000/admin
+Abrir: "/api"/admin
 Login: admin@example.com / sua_senha
 
 # 2. API
-Abrir: localhost:8000/api/
+Abrir: "/api""/api"/
 Deve listar endpoints
 
 # 3. Token
-POST localhost:8000/api/token/
+POST "/api""/api"/token/
 Body: { "email": "admin@example.com", "password": "sua_senha" }
 Deve retornar: { "access": "...", "refresh": "...", ... }
 ```
@@ -162,12 +162,12 @@ node --version
 
 ### Passo 3: Verificar api.js
 ```javascript
-// src/api/api.js deve ter interceptors JWT
+// src"/api""/api".js deve ter interceptors JWT
 
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/"
+  baseURL: "http://127.0.0.1:8000"/api"/"
 });
 
 api.interceptors.request.use(
@@ -203,13 +203,13 @@ npm run dev
 ```
 VITE v7.3.1  ready in XXX ms
 
-➜  Local:   http://localhost:5173/
+➜  Local:   http://"/api":5173/
 ➜  press h to show help
 ```
 
 ### Testes Frontend
 ```
-1. Abrir: http://localhost:5173/usuario/cadastro
+1. Abrir: http://"/api":5173/usuario/cadastro
 2. Criar conta: novo@email.com / senha123456 / Seu Nome
 3. Ir para login
 4. Login: novo@email.com / senha123456
@@ -241,24 +241,24 @@ npm run dev
 ### Terminal 3 - Testes Manual
 ```bash
 # 1. Signup
-curl -X POST localhost:8000/api/usuarios/ \
+curl -X POST "/api""/api"/usuarios/ \
   -H "Content-Type: application/json" \
   -d '{"email":"teste@example.com","nome":"Teste","password":"senha123"}'
 
 # 2. Login
-curl -X POST localhost:8000/api/token/ \
+curl -X POST "/api""/api"/token/ \
   -H "Content-Type: application/json" \
   -d '{"email":"teste@example.com","password":"senha123"}'
 
 # 3. Criar Tarefa (substitua TOKEN)
 TOKEN="seu_access_token_aqui"
-curl -X POST localhost:8000/api/tarefas/ \
+curl -X POST "/api""/api"/tarefas/ \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"titulo":"Teste","status":"pendente","data_vencimento":"2026-05-15"}'
 
 # 4. Listar Tarefas
-curl -X GET localhost:8000/api/tarefas/ \
+curl -X GET "/api""/api"/tarefas/ \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -268,10 +268,10 @@ curl -X GET localhost:8000/api/tarefas/ \
 
 ### Backend
 - [ ] `python manage.py runserver` funciona
-- [ ] localhost:8000/admin carrega
+- [ ] "/api"/admin carrega
 - [ ] Admin login funciona
-- [ ] POST /api/token/ retorna tokens
-- [ ] GET /api/tarefas/ retorna lista (protegido)
+- [ ] POST "/api"/token/ retorna tokens
+- [ ] GET "/api"/tarefas/ retorna lista (protegido)
 - [ ] Novos modelos aparecem no admin:
   - [ ] SaudeRegistro
   - [ ] ExercicioRegistro
@@ -279,7 +279,7 @@ curl -X GET localhost:8000/api/tarefas/ \
 
 ### Frontend
 - [ ] `npm run dev` funciona
-- [ ] http://localhost:5173 carrega
+- [ ] http://"/api":5173 carrega
 - [ ] /usuario/cadastro funciona
 - [ ] Cadastro cria usuário no backend
 - [ ] Login gera tokens
@@ -310,7 +310,7 @@ pip install djangorestframework-simplejwt
 python manage.py runserver
 ```
 
-### Erro: `django.db.utils.OperationalError: could not translate host name "localhost" to address`
+### Erro: `django.db.utils.OperationalError: could not translate host name ""/api"" to address`
 ```
 ❌ PostgreSQL não está rodando
 ✓ Iniciar PostgreSQL Services
@@ -321,12 +321,12 @@ python manage.py runserver
 
 ### Erro: `CORS error` no frontend
 ```
-Frontend: http://localhost:5173
-Backend: localhost:8000
+Frontend: http://"/api":5173
+Backend: "/api"
 
 Verificar settings.py:
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    "http://"/api":5173",
 ]
 ```
 
@@ -341,11 +341,11 @@ CORS_ALLOWED_ORIGINS = [
 ### Erro: `Cannot find module 'api'`
 ```bash
 # Verificar se api.js existe
-ls src/api/api.js
+ls src"/api""/api".js
 
 # Se não existir:
 # Copiar de outro lugar ou criar:
-# cat > src/api/api.js << 'EOF'
+# cat > src"/api""/api".js << 'EOF'
 # (colar conteúdo)
 # EOF
 ```

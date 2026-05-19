@@ -23,7 +23,7 @@ npm run dev
 
 ### Browser
 ```
-http://localhost:5173/usuario/cadastro
+http://"/api":5173/usuario/cadastro
 → Criar conta
 → Login
 → Usar aplicação
