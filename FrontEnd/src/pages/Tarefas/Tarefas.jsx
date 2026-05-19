@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import api from "../.."/api""/api"";
+import api from "../../api/api";
 import "./Tarefas.css";
 
 export default function Tarefas() {
