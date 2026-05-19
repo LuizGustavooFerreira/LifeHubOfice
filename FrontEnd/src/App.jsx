@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/usuario/Login";
 import Index from "./pages/Index";
-import Cadastro from "./pages/usuario/cadastro";
+import Cadastro from "./pages/usuario/Cadastro";
 import Exercicios from "./pages/Exercicios/Exercicios";
 import Financas from "./pages/Financas/Financas";
 import Habitos from "./pages/Habitos/Habitos";
