@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import api from "../../api/api";
-import "./Saude.css";
+import "./saude.css";
 
 export default function Saude() {
   const [registros, setRegistros] = useState([]);

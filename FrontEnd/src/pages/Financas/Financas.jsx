@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import api from "../../api/api";
-import "./Financas.css";
+import "./financas.css";
 
 export default function Financas() {
   const [transacoes, setTransacoes] = useState([]);
