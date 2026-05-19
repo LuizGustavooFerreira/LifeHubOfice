@@ -42,7 +42,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'app/templates'),
+            os.path.join(BASE_DIR, '../FrontEnd/dist'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -134,4 +134,8 @@ CORS_ALLOW_HEADERS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "../FrontEnd/dist/assets"),
 ]
