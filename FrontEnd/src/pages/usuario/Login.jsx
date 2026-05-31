@@ -22,8 +22,8 @@ export default function Login() {
     try {
 
       const resposta = await api.post("/token/", {
-        email,
-        password
+      email: email.trim().toLowerCase(),
+      password
       });
 
       const dados = resposta.data;

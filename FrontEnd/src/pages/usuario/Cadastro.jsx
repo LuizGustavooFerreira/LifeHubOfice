@@ -40,9 +40,9 @@ function Cadastro() {
     try {
 
       await api.post("/usuarios/", {
-        email,
-        nome,
-        password
+      email: email.trim().toLowerCase(),
+      nome,
+      password
       })
 
       setSucesso(true)
