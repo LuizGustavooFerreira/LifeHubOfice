@@ -25,7 +25,7 @@ O projeto combina desenvolvimento de APIs, autenticação, persistência de dado
 | Frontend | React, Vite, JavaScript, React Router, Axios e CSS |
 | Backend | Python, Django, Django REST Framework |
 | Autenticação | Simple JWT |
-| Banco de dados | SQLite em desenvolvimento e PostgreSQL em produção |
+| Banco de dados | SQL em desenvolvimento e Workbanch e PostgressSQL em produção |
 | Hospedagem | Render |
 | Versionamento | Git e GitHub |
 
